@@ -49,7 +49,7 @@ const NavLinks = ({ handleClick }) => {
           Motivating & Focus
         </h1>
       </Link>
-      <h1 className="ml-0 sm:ml-8 cursor-pointer  text-xl mt-10 text-gray-800 my-2 font-medium ">
+      <h1 className="ml-0 sm:ml-8 text-md md:text-xl md:mt-10 cursor-pointer text-gray-800 my-2 font-medium ">
         Copyright Chirag Suthar &copy; | All Rights Reserved
       </h1>
     </div>
