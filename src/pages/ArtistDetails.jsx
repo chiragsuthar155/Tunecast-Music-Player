@@ -7,17 +7,17 @@ const ArtistDetails = () => {
   const { id: artistId } = useParams();
   const { data: artistData, isFetching: isFetchingArtistData } =
     useGetArtistDetailsQuery({ artistId });
-  if (isFetchingArtistData) return "Loading...";
+  if (isFetchingArtistData) return <div className="text-center text-black">Loading...</div>;
   console.log("Artist Data", artistData);
   return (
     <>
-      {artistData.errors ? (
+      {artistData?.errors ? (
         <NotAvailable />
       ) : (
         <div className="flex flex-wrap sm:justify-start justify-center gap-0 ">
-          {Object.values(artistData.resources.songs).map((song, i) => (
+          {artistData?.resources?.songs && Object.values(artistData.resources.songs).map((song, i) => (
             <SongCard key={song.key} song={song} data={artistData} i={i} />
-          ))}
+          )) || <div className="text-center text-black">No songs found</div>}
         </div>
       )}
     </>

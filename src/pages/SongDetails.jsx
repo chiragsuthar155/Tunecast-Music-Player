@@ -22,32 +22,31 @@ const SongDetails = () => {
   };
 
   if (isFetchingSongDetails) {
-    // return <Loader title="Loading songs..." />;
-    return "Loading...";
+    return <Loader title="Loading song details..." />;
   }
 
-  if (songError) return "Error...";
+  if (songError || !songData) return <div className="text-center text-black">Song not found</div>;
 
   return (
     <>
       <div className="mt-5">
         <div className="flex flex-col justify-center items-center md:flex-row md:justify-start  md:items-start">
           <img
-            src={songData.images.coverart}
-            alt={songData.title}
+            src={songData?.images?.coverart || "https://via.placeholder.com/300x300"}
+            alt={songData?.title || "Song"}
             className="rounded-full md:w-1/4 w-3/6 mb-10 md:mb-0"
           />
           <div className="flex flex-col ml-0 px-8 md:ml-10 items-start font-black ">
-            <h1 className="text-4xl ">{songData.title}</h1>
-            <p className="text-2xl ">{songData.subtitle}</p>
-            <p className="text-xl ">{songData.genres.primary}</p>
+            <h1 className="text-4xl ">{songData?.title || "Unknown Title"}</h1>
+            <p className="text-2xl ">{songData?.subtitle || "Unknown Artist"}</p>
+            <p className="text-xl ">{songData?.genres?.primary || "Music"}</p>
             <div className="flex flex-row justify-start items-center">
               <img
                 className="w-7 md:w-9  mr-3 cursor-pointer mt-3 hover:scale-150 transition-transform "
                 src={spotify}
                 alt="Spotify Logo"
                 onClick={() => {
-                  openNewTab(songData.hub.providers[0].actions[0].uri);
+                  openNewTab(songData?.hub?.providers?.[0]?.actions?.[0]?.uri || songData?.url || "#");
                 }}
               />
               <img
@@ -55,7 +54,7 @@ const SongDetails = () => {
                 src={youtube}
                 alt="Youtube Logo"
                 onClick={() => {
-                  openNewTab(songData.sections[2].youtubeurl.actions[0].uri);
+                  openNewTab(songData?.sections?.[2]?.youtubeurl?.actions?.[0]?.uri || `https://www.youtube.com/results?search_query=${encodeURIComponent((songData?.title || '') + ' ' + (songData?.subtitle || ''))}`);
                 }}
               />
               <img
@@ -63,7 +62,7 @@ const SongDetails = () => {
                 src={shazam}
                 alt="Shazam Logo"
                 onClick={() => {
-                  openNewTab(songData.url);
+                  openNewTab(songData?.url || "#");
                 }}
               />
               <img
@@ -71,7 +70,7 @@ const SongDetails = () => {
                 src={apple}
                 alt="Apple Logo"
                 onClick={() => {
-                  openNewTab(songData.hub.options[0].actions[1].uri);
+                  openNewTab(songData?.hub?.options?.[0]?.actions?.[1]?.uri || songData?.url || "#");
                 }}
               />
               <img
@@ -79,18 +78,15 @@ const SongDetails = () => {
                 src={deezer}
                 alt="Deezer Logo"
                 onClick={() => {
-                  const data =
-                    "https" +
-                    songData.hub.providers[1].actions[0].uri.slice(12);
-                  openNewTab(data);
+                  openNewTab(songData?.url || "#");
                 }}
               />
             </div>
             <div className="mt-9  w-full">
               <h1 className="mb-3 text-4xl">Lyrics: </h1>
-              {songData.sections[1].type === "LYRICS" ? (
-                songData.sections[1].text.map((songLine) => (
-                  <p className="text-md md:text-xl font-normal leading-6 md:leading-8 ">
+              {songData?.sections?.[1]?.type === "LYRICS" && songData?.sections?.[1]?.text ? (
+                songData.sections[1].text.map((songLine, index) => (
+                  <p key={index} className="text-md md:text-xl font-normal leading-6 md:leading-8 ">
                     {songLine}
                   </p>
                 ))

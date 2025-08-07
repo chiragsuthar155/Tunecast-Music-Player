@@ -5,11 +5,11 @@ const CountryTracks = () => {
   const { data: aroundYouData, isFetching: isFetchingAroundYou } =
     useGetAroundYouDetailsQuery();
   console.log(aroundYouData);
-  if (isFetchingAroundYou) return "Loading...";
+  if (isFetchingAroundYou) return <div className="text-center text-black">Loading...</div>;
   return (
     <>
       <div className="flex flex-wrap sm:justify-start justify-center gap-0 ">
-        {aroundYouData.tracks.map((song, i) => (
+        {aroundYouData?.tracks?.map((song, i) => (
           <SongCard key={song.key} song={song} data={aroundYouData} i={i} />
         ))}
       </div>

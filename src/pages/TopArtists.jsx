@@ -6,7 +6,7 @@ const TopArtists = () => {
   const { data: artistsData, isFetching: isFetchingArtistsDetails } =
     useGetTopChartsQuery();
 
-  if (isFetchingArtistsDetails) return "Loading...";
+  if (isFetchingArtistsDetails) return <div className="text-center text-black">Loading...</div>;
   console.log(artistsData.tracks);
   return (
     <>
@@ -14,8 +14,9 @@ const TopArtists = () => {
         id="artists"
         className="flex flex-row w-full flex-wrap gap-5 py-8 justify-center md:justify-start "
       >
-        {artistsData.tracks.map((item, i) => (
+        {artistsData?.tracks?.map((item, i) => (
           <Link
+            key={i}
             className="flex flex-col justify-center  items-center "
             to={`/artists/${
               item?.artists ? item?.artists[0].adamid : "not-available"
@@ -24,17 +25,16 @@ const TopArtists = () => {
             <img
               src={
                 item.share.avatar
-                  ? item.share.avatar
-                  : "https://secure.gravatar.com/avatar/4b21ce3917fcb75324268ba4d3143c37?d=https%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Fdefault-avatar-0.png"
+                  || "https://via.placeholder.com/300x300"
               }
               alt="name"
               className="rounded-full object-cover w-48 transition hover:-translate-y-2 "
             />
             <p className="mt-1 font-bold text-gray-50 px-2 text-xs md:text-sm truncate w-1/2 text-center bg-orange-400 rounded-lg py-1">
-              {item.subtitle}
+              {item?.subtitle}
             </p>
           </Link>
-        ))}
+        )) || <div className="text-center text-black">No artists found</div>}
       </div>
     </>
   );

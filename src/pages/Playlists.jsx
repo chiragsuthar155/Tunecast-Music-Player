@@ -12,9 +12,9 @@ function Playlists() {
   return (
     <>
       <div className="flex flex-wrap sm:justify-start justify-center gap-0 ">
-        {data.tracks.map((song, i) => (
+        {data?.tracks?.map((song, i) => (
           <SongCard key={song.key} song={song} data={data} i={i} />
-        ))}
+        )) || <div className="text-center text-black">No playlists found</div>}
       </div>
     </>
   );
