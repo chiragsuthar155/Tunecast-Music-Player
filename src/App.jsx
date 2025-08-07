@@ -64,7 +64,7 @@ const App = () => {
           </div>
 
           <div className="px-2 h-[calc(100vh-72px)] overflow-y-scroll hide-scrollbar flex xl:flex-row flex-col-reverse md:px-6">
-            <div className="flex-1 h-fit pb-40">
+            <div className="flex-1 h-fit pb-40 px-2 sm:px-4">
               <Routes>
                 <Route path="/" element={<Discover />} />
                 <Route path="/top-artists" element={<TopArtists />} />
@@ -84,7 +84,7 @@ const App = () => {
         </div>
 
         {activeSong?.title && (
-          <div className="absolute h-52 md:h-36 md:pt-5 bottom-10 md:bottom-12 left-0 right-0 flex animate-slideup bg-orange-500 backdrop-blur-lg rounded-t-3xl z-10">
+          <div className="absolute h-52 sm:h-44 md:h-36 md:pt-5 bottom-10 md:bottom-12 left-0 right-0 flex animate-slideup bg-orange-500 backdrop-blur-lg rounded-t-3xl z-10">
             <MusicPlayer />
           </div>
         )}

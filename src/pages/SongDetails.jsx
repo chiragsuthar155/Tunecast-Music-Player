@@ -1,5 +1,6 @@
 import { useParams } from "react-router-dom";
 import { useGetSongDetailsQuery } from "../redux/services/shazamCore";
+import { SkeletonSongDetail } from "../components";
 
 import spotify from "../assets/spotify.png";
 import youtube from "../assets/youtube.svg";
@@ -22,7 +23,7 @@ const SongDetails = () => {
   };
 
   if (isFetchingSongDetails) {
-    return <Loader title="Loading song details..." />;
+    return <SkeletonSongDetail />;
   }
 
   if (songError || !songData) return <div className="text-center text-black">Song not found</div>;
@@ -30,19 +31,19 @@ const SongDetails = () => {
   return (
     <>
       <div className="mt-5">
-        <div className="flex flex-col justify-center items-center md:flex-row md:justify-start  md:items-start">
+        <div className="flex flex-col justify-center items-center md:flex-row md:justify-start md:items-start px-4">
           <img
             src={songData?.images?.coverart || "https://via.placeholder.com/300x300"}
             alt={songData?.title || "Song"}
-            className="rounded-full md:w-1/4 w-3/6 mb-10 md:mb-0"
+            className="rounded-full w-48 sm:w-56 md:w-64 lg:w-80 mb-10 md:mb-0 max-w-sm"
           />
-          <div className="flex flex-col ml-0 px-8 md:ml-10 items-start font-black ">
-            <h1 className="text-4xl ">{songData?.title || "Unknown Title"}</h1>
-            <p className="text-2xl ">{songData?.subtitle || "Unknown Artist"}</p>
-            <p className="text-xl ">{songData?.genres?.primary || "Music"}</p>
+          <div className="flex flex-col ml-0 px-4 md:px-8 md:ml-10 items-center md:items-start font-black w-full">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl text-center md:text-left break-words">{songData?.title || "Unknown Title"}</h1>
+            <p className="text-lg sm:text-xl md:text-2xl text-center md:text-left">{songData?.subtitle || "Unknown Artist"}</p>
+            <p className="text-base sm:text-lg md:text-xl text-center md:text-left">{songData?.genres?.primary || "Music"}</p>
             <div className="flex flex-row justify-start items-center">
               <img
-                className="w-7 md:w-9  mr-3 cursor-pointer mt-3 hover:scale-150 transition-transform "
+                className="w-6 sm:w-7 md:w-9 mr-2 sm:mr-3 cursor-pointer mt-3 hover:scale-125 transition-transform"
                 src={spotify}
                 alt="Spotify Logo"
                 onClick={() => {
@@ -50,7 +51,7 @@ const SongDetails = () => {
                 }}
               />
               <img
-                className="w-7 md:w-10 mr-3 cursor-pointer mt-3 hover:scale-150 transition-transform"
+                className="w-6 sm:w-7 md:w-10 mr-2 sm:mr-3 cursor-pointer mt-3 hover:scale-125 transition-transform"
                 src={youtube}
                 alt="Youtube Logo"
                 onClick={() => {
@@ -58,7 +59,7 @@ const SongDetails = () => {
                 }}
               />
               <img
-                className="w-7 md:w-10 mr-3 cursor-pointer mt-3 hover:scale-150 transition-transform"
+                className="w-6 sm:w-7 md:w-10 mr-2 sm:mr-3 cursor-pointer mt-3 hover:scale-125 transition-transform"
                 src={shazam}
                 alt="Shazam Logo"
                 onClick={() => {
@@ -66,7 +67,7 @@ const SongDetails = () => {
                 }}
               />
               <img
-                className="w-7 md:w-10 mr-3 cursor-pointer mt-3 hover:scale-150 transition-transform"
+                className="w-6 sm:w-7 md:w-10 mr-2 sm:mr-3 cursor-pointer mt-3 hover:scale-125 transition-transform"
                 src={apple}
                 alt="Apple Logo"
                 onClick={() => {
@@ -74,7 +75,7 @@ const SongDetails = () => {
                 }}
               />
               <img
-                className="w-7 md:w-10 mr-3 cursor-pointer mt-3 hover:scale-150 transition-transform"
+                className="w-6 sm:w-7 md:w-10 mr-2 sm:mr-3 cursor-pointer mt-3 hover:scale-125 transition-transform"
                 src={deezer}
                 alt="Deezer Logo"
                 onClick={() => {
@@ -83,15 +84,15 @@ const SongDetails = () => {
               />
             </div>
             <div className="mt-9  w-full">
-              <h1 className="mb-3 text-4xl">Lyrics: </h1>
+              <h1 className="mb-3 text-2xl sm:text-3xl md:text-4xl text-center md:text-left">Lyrics: </h1>
               {songData?.sections?.[1]?.type === "LYRICS" && songData?.sections?.[1]?.text ? (
                 songData.sections[1].text.map((songLine, index) => (
-                  <p key={index} className="text-md md:text-xl font-normal leading-6 md:leading-8 ">
+                  <p key={index} className="text-sm sm:text-base md:text-xl font-normal leading-6 md:leading-8 text-center md:text-left">
                     {songLine}
                   </p>
                 ))
               ) : (
-                <p className="text-xl font-normal ">Not Available 😥</p>
+                <p className="text-lg sm:text-xl font-normal text-center md:text-left">Not Available 😥</p>
               )}
             </div>
           </div>

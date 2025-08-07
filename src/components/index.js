@@ -9,6 +9,7 @@ import RelatedSongs from './RelatedSongs';
 import MusicPlayer from './MusicPlayer';
 import Loader from './Loader';
 import Error from './Error';
+import { SkeletonCard, SkeletonArtist, SkeletonSongDetail, SkeletonSearch } from './SkeletonLoader';
 
 export {
   TopPlay,
@@ -22,4 +23,8 @@ export {
   MusicPlayer,
   Loader,
   Error,
+  SkeletonCard,
+  SkeletonArtist,
+  SkeletonSongDetail,
+  SkeletonSearch,
 };

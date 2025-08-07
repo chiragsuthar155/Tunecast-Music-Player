@@ -31,9 +31,9 @@ const SongCard = ({ song, isPlaying, activeSong, data, i }) => {
     <>
       <div
         id="topSec"
-        className="flex flex-col song-card w-[250px] p-4 bg-white/5 bg-opacity-80 backdrop-blur-sm animate-slideup rounded-lg cursor-pointer"
+        className="flex flex-col song-card w-full max-w-[250px] min-w-[200px] p-4 bg-white/5 bg-opacity-80 backdrop-blur-sm animate-slideup rounded-lg cursor-pointer mx-auto"
       >
-        <div className="relative w-full h-54  group">
+        <div className="relative w-full aspect-square group">
           <div
             className={`absolute inset-0 justify-center items-center rounded-2xl bg-black bg-opacity-50 group-hover:flex ${
               activeSong?.title === song.title
@@ -50,23 +50,23 @@ const SongCard = ({ song, isPlaying, activeSong, data, i }) => {
             />
           </div>
           <div
-            className=" absolute top-3 right-3 p-1.5 bg-gray-50 rounded-3xl"
+            className="absolute top-2 right-2 sm:top-3 sm:right-3 p-1.5 bg-gray-50 rounded-3xl"
             onClick={() => (isLiked ? setIsLiked(false) : setIsLiked(true))}
           >
             {isLiked ? (
               <img
-                className="w-5"
+                className="w-4 sm:w-5"
                 src="https://img.icons8.com/color/48/null/like--v3.png"
               />
             ) : (
-              <FaRegHeart className="text-lg text-gray-500 " />
+              <FaRegHeart className="text-sm sm:text-lg text-gray-500" />
             )}
           </div>
-          <div className=" absolute bottom-3 left-3 p-1.5 bg-gray-50 rounded-3xl">
+          <div className="absolute bottom-2 left-2 sm:bottom-3 sm:left-3 p-1.5 bg-gray-50 rounded-3xl">
             {isSongPlaying ? (
-              <img className="w-4" src={audioPlay} alt="Audio Play" />
+              <img className="w-3 sm:w-4" src={audioPlay} alt="Audio Play" />
             ) : (
-              <FaHeadphonesAlt className=" text-md text-black  " />
+              <FaHeadphonesAlt className="text-sm sm:text-md text-black" />
             )}
           </div>
 
@@ -78,7 +78,7 @@ const SongCard = ({ song, isPlaying, activeSong, data, i }) => {
                   ? song.images.coverart
                   : "https://pbs.twimg.com/media/FLtvzvoXoAQ7BCw.jpg"
               }
-              className="rounded-xl"
+              className="rounded-xl w-full h-full object-cover"
             />
           ) : (
             <img
@@ -90,16 +90,17 @@ const SongCard = ({ song, isPlaying, activeSong, data, i }) => {
                     ) + "300x300bb.jpg"
                   : "https://pbs.twimg.com/media/FLtvzvoXoAQ7BCw.jpg"
               }
+              className="rounded-xl w-full h-full object-cover"
             />
           )}
         </div>
         <div className="mt-1 flex flex-col ">
-          <h1 className=" text-lg text-black truncate ">
+          <h1 className="text-sm sm:text-base md:text-lg text-black truncate">
             <Link className="font-extrabold" to={`/songs/${song?.key}`}>
               {song.title ? song.title : song.attributes.name}
             </Link>
           </h1>
-          <p className="text-sm font-extrabold truncate text-gray-500 ">
+          <p className="text-xs sm:text-sm font-extrabold truncate text-gray-500">
             <Link
               to={
                 song.artists
